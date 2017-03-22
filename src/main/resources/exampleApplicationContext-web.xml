@@ -12,9 +12,9 @@
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:default-servlet-handler/>
 
-    <context:component-scan base-package="net.petrikainulainen.spring.social.signinmvc.common.controller"/>
-    <context:component-scan base-package="net.petrikainulainen.spring.social.signinmvc.security.controller"/>
-    <context:component-scan base-package="net.petrikainulainen.spring.social.signinmvc.user.controller"/>
+    <context:component-scan base-package="com.kozlovsky.common.controller"/>
+    <context:component-scan base-package="com.kozlovsky.security.controller"/>
+    <context:component-scan base-package="com.kozlovsky.user.controller"/>
 
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">

@@ -10,7 +10,7 @@
     <import resource="exampleApplicationContext-security.xml"/>
     <import resource="exampleApplicationContext-social.xml"/>
 
-    <context:component-scan base-package="net.petrikainulainen.spring.social.signinmvc.user.service"/>
+    <context:component-scan base-package="com.kozlovsky.user.service"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="i18n/messages"/>
