@@ -19,14 +19,14 @@ import java.util.Properties;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = {
-        "net.petrikainulainen.spring.social.signinmvc.user.repository"
+        "com.kozlovsky.user.repository"
 })
 @EnableTransactionManagement
 public class PersistenceContext {
 
     private static final String[] PROPERTY_PACKAGES_TO_SCAN = {
-            "net.petrikainulainen.spring.social.signinmvc.common.model",
-            "net.petrikainulainen.spring.social.signinmvc.user.model"
+            "com.kozlovsky.common.model",
+            "com.kozlovsky.user.model"
     };
 
     protected static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";

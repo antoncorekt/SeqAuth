@@ -10,7 +10,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
  */
 @Configuration
 @ComponentScan(basePackages = {
-        "net.petrikainulainen.spring.social.signinmvc.user.service"
+        "com.kozlovsky.user.service"
 })
 @Import({WebAppContext.class, PersistenceContext.class, SecurityContext.class, SocialContext.class})
 @PropertySource("classpath:application.properties")
