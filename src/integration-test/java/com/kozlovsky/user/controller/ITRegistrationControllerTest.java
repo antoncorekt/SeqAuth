@@ -283,8 +283,8 @@ public class ITRegistrationControllerTest {
     }
 
     @Test
-    @DatabaseSetup("/net/petrikainulainen/spring/social/signinmvc/user/users.xml")
-    @ExpectedDatabase(value = "/net/petrikainulainen/spring/social/signinmvc/user/users.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @DatabaseSetup("/com/kozlovsky/users.xml")
+    @ExpectedDatabase(value = "/com/kozlovsky/users.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void registerUserAccount_NormalRegistrationAndEmailExists_ShouldRenderRegistrationFormWithFieldError() throws Exception {
         CsrfToken csrfToken = new CsrfTokenBuilder()
                 .headerName(IntegrationTestConstants.CSRF_TOKEN_HEADER_NAME)
@@ -552,8 +552,8 @@ public class ITRegistrationControllerTest {
     }
 
     @Test
-    @DatabaseSetup("/net/petrikainulainen/spring/social/signinmvc/user/users.xml")
-    @ExpectedDatabase(value = "/net/petrikainulainen/spring/social/signinmvc/user/users.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @DatabaseSetup("/com/kozlovsky/users.xml")
+    @ExpectedDatabase(value = "/com/kozlovsky/users.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void registerUserAccount_SocialSignInAndEmailExist_ShouldRenderRegistrationFormWithFieldError() throws Exception {
         TestProviderSignInAttempt socialSignIn = new TestProviderSignInAttemptBuilder()
                 .connectionData()

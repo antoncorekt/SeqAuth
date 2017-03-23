@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
-@DatabaseSetup("/net/petrikainulainen/spring/social/signinmvc/user/users.xml")
+@DatabaseSetup("/com/kozlovsky/users.xml")
 public class ITFormLoginTest {
 
     private static final String NOT_FOUND_USER = "not@found.com";

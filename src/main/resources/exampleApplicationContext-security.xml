@@ -101,4 +101,8 @@
         uses the username as the account ID.
     -->
     <bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
+
+
+
+
 </beans>
