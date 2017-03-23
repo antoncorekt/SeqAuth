@@ -1,5 +1,7 @@
 package com.kozlovsky.user.controller;
 
+import com.kozlovsky.common.email.EmailModel;
+import com.kozlovsky.common.email.EmailService;
 import com.kozlovsky.user.model.User;
 import com.kozlovsky.user.service.DuplicateEmailException;
 import com.kozlovsky.user.service.UserService;
@@ -17,13 +19,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author anton
@@ -41,13 +48,14 @@ public class RegistrationController {
     private UserService service;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     public RegistrationController(UserService service) {
         this.service = service;
     }
 
-    /**
-     * Renders the registration page.
-     */
+
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public String showRegistrationForm(WebRequest request, Model model) {
         LOGGER.debug("Rendering registration page.");
@@ -62,13 +70,7 @@ public class RegistrationController {
         return VIEW_NAME_REGISTRATION_PAGE;
     }
 
-    /**
-     * Creates the form object used in the registration form.
-     * @param connection
-     * @return  If a user is signing in by using a social provider, this method returns a form
-     *          object populated by the values given by the provider. Otherwise this method returns
-     *          an empty form object (normal form registration).
-     */
+
     private RegistrationForm createRegistrationDTO(Connection<?> connection) {
         RegistrationForm dto = new RegistrationForm();
 
@@ -85,13 +87,11 @@ public class RegistrationController {
         return dto;
     }
 
-    /**
-     * Processes the form submissions of the registration form.
-     */
+
     @RequestMapping(value ="/user/register", method = RequestMethod.POST)
     public String registerUserAccount(@Valid @ModelAttribute("user") RegistrationForm userAccountData,
                                       BindingResult result,
-                                      WebRequest request) throws DuplicateEmailException {
+                                      WebRequest request,  HttpServletRequest htppRequest) throws DuplicateEmailException {
         LOGGER.debug("Registering user account with information: {}", userAccountData);
         if (result.hasErrors()) {
             LOGGER.debug("Validation errors found. Rendering form view.");
@@ -102,7 +102,15 @@ public class RegistrationController {
 
         User registered = createUserAccount(userAccountData, result);
 
-        //If email address was already found from the database, render the form view.
+        Map<String, Object> model = new HashMap<>();
+        model.put("from", "kozlovsky.anton@gmail.com");
+        model.put("subject", "Registrations ");
+        model.put("to", "kozlovsky.anton@gmail.com");
+
+        if (!registered.getPassword().equals(""))
+        emailService.sendEmail(htppRequest.getRemoteAddr()+":"+"8080" + "/activations?key="+registered.getRegisterkey()
+                , model);
+
         if (registered == null) {
             LOGGER.debug("An email address was found from the database. Rendering form view.");
             return VIEW_NAME_REGISTRATION_PAGE;
@@ -110,7 +118,8 @@ public class RegistrationController {
 
         LOGGER.debug("Registered user account with information: {}", registered);
 
-        //Logs the user in.
+       // result.addError(new ObjectError("На почту отправили сообщение","sc"));
+
         SecurityUtil.logInUser(registered);
         LOGGER.debug("User {} has been signed in", registered);
         //If the user is signing in by using a social provider, this method call stores
@@ -121,10 +130,7 @@ public class RegistrationController {
         return "redirect:/";
     }
 
-    /**
-     * Creates a new user account by calling the service method. If the email address is found
-     * from the database, this method adds a field error to the email field of the form object.
-     */
+
     private User createUserAccount(RegistrationForm userAccountData, BindingResult result) {
         LOGGER.debug("Creating user account with information: {}", userAccountData);
         User registered = null;

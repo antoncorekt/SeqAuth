@@ -4,13 +4,18 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.ui.velocity.VelocityEngineFactoryBean;
+
+import java.util.Properties;
 
 /**
  * @author anton
  */
 @Configuration
 @ComponentScan(basePackages = {
-        "com.kozlovsky.user.service"
+        "com.kozlovsky"
 })
 @Import({WebAppContext.class, PersistenceContext.class, SecurityContext.class, SocialContext.class})
 @PropertySource("classpath:application.properties")
@@ -32,4 +37,47 @@ public class ExampleApplicationContext {
     public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
+
+    @Bean
+    public VelocityEngineFactoryBean velocityEngineFactoryBean(){
+        VelocityEngineFactoryBean velocityEngineFactoryBean = new VelocityEngineFactoryBean();
+        velocityEngineFactoryBean.setResourceLoaderPath("WEB-INF/email-temp/");
+
+        return velocityEngineFactoryBean;
+    }
+
+    @Bean
+    public JavaMailSenderImpl javaMailSender(){
+        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+
+        javaMailSender.setUsername("kozlovsky.anton@gmail.com");
+        javaMailSender.setPassword("50191995FYNJY");
+        javaMailSender.setPort(465);
+
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth",true);
+        properties.put("mail.smtp.starttls.enable",true);
+        properties.put("mail.smtp.starttls.required",true);
+        properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.host","smtp.gmail.com");
+
+        javaMailSender.setJavaMailProperties(properties);
+
+
+        /*<property name="username" value="${java.mail.username}"/>
+        <property name="password" value="${java.mail.password}"/>
+        <property name="port" value="465"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.starttls.required">true</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.host">${java.mail.host}</prop>
+            </props>
+        </property>*/
+
+        return javaMailSender;
+    }
+
 }

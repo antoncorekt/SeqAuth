@@ -15,4 +15,9 @@ public interface UserService {
      * @throws DuplicateEmailException Thrown when the email address is found from the database.
      */
     public User registerNewUserAccount(RegistrationForm userAccountData) throws DuplicateEmailException;
+
+    public void setEnableForUserActivations(String key);
+
+
+    public User getUserForRegKey(String key);
 }

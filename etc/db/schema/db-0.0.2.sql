@@ -8,6 +8,8 @@ CREATE TABLE `user_accounts` (
   `last_name` varchar(100) NOT NULL,
   `modification_time` datetime NOT NULL,
   `password` varchar(255),
+  `register_key` varchar(255),
+  `enaeble` INT (1),
   `role` varchar(20) NOT NULL,
   `sign_in_provider` varchar(20),
   `version` bigint(20) NOT NULL,

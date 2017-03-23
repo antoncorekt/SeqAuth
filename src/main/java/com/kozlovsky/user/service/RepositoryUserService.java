@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
+
 /**
  * @author anton
  */
@@ -46,7 +49,9 @@ public class RepositoryUserService implements UserService {
                 .email(userAccountData.getEmail())
                 .firstName(userAccountData.getFirstName())
                 .lastName(userAccountData.getLastName())
-                .password(encodedPassword);
+                .password(encodedPassword)
+                .enaeble("not accept")
+                .registerkey(UUID.randomUUID().toString());
 
         if (userAccountData.isSocialSignIn()) {
             user.signInProvider(userAccountData.getSignInProvider());
@@ -73,6 +78,29 @@ public class RepositoryUserService implements UserService {
 
         return false;
     }
+
+    public void setEnableForUserActivations(String key){
+
+        LOGGER.debug("Before enable for key: {}. User {}", key, repository.findByRegisterkey(key));
+
+        User user = repository.findByRegisterkey(key);
+        repository.delete(user);
+        user.setEnaeble("accept");
+        repository.save(user);
+
+        LOGGER.debug("After enable for key: {}. User {}", key, repository.findByRegisterkey(key));
+    }
+
+    public User getUserForRegKey(String key){
+        User user = repository.findByRegisterkey(key);
+
+
+
+        LOGGER.debug("Find user for registrations key: {}. Finding {}", key, user);
+        return user;
+    }
+
+
 
     private String encodePassword(RegistrationForm dto) {
         String encodedPassword = null;
