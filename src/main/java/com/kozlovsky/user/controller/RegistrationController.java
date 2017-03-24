@@ -60,6 +60,8 @@ public class RegistrationController {
     public String showRegistrationForm(WebRequest request, Model model) {
         LOGGER.debug("Rendering registration page.");
 
+        LOGGER.debug("Rendering registration page. Request->" + request.toString());
+
         Connection<?> connection = ProviderSignInUtils.getConnection(request);
 
         RegistrationForm registration = createRegistrationDTO(connection);
@@ -105,11 +107,12 @@ public class RegistrationController {
         Map<String, Object> model = new HashMap<>();
         model.put("from", "kozlovsky.anton@gmail.com");
         model.put("subject", "Registrations ");
-        model.put("to", "kozlovsky.anton@gmail.com");
+        model.put("to", userAccountData.getEmail());
 
-        if (!registered.getPassword().equals(""))
+        if (!userAccountData.isSocialSignIn())
         emailService.sendEmail(htppRequest.getRemoteAddr()+":"+"8080" + "/activations?key="+registered.getRegisterkey()
                 , model);
+
 
         if (registered == null) {
             LOGGER.debug("An email address was found from the database. Rendering form view.");
@@ -120,12 +123,12 @@ public class RegistrationController {
 
        // result.addError(new ObjectError("На почту отправили сообщение","sc"));
 
-        SecurityUtil.logInUser(registered);
-        LOGGER.debug("User {} has been signed in", registered);
-        //If the user is signing in by using a social provider, this method call stores
-        //the connection to the UserConnection table. Otherwise, this method does not
-        //do anything.
-        ProviderSignInUtils.handlePostSignUp(registered.getEmail(), request);
+
+        if (userAccountData.isSocialSignIn()) {
+            SecurityUtil.logInUser(registered);
+            LOGGER.debug("User {} has been signed in", registered);
+            ProviderSignInUtils.handlePostSignUp(registered.getEmail(), request);
+        }
 
         return "redirect:/";
     }

@@ -58,7 +58,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                                 "/login",
                                 "/signup/**",
                                 "/user/register/**",
-                                "/activations"
+                                "/activations*"
                         ).permitAll()
                         //The rest of the our application is protected.
                         .antMatchers("/**").hasRole("USER")

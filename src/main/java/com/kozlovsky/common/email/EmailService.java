@@ -49,8 +49,8 @@ public class EmailService {
                     String subject = (String) model.get(SUBJECT);
 
                     List<String> bccList = (List<String>) model.get(BCC_LIST);
-                    //ВАЖНО! ПОСТАВЬТЕ КОДИРОВКУ UTF-8 ИЛИ СООБЩЕНИЯ БУДУТ ?????? ??
-                    MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8"); //ENCODING IMPORTANT!
+
+                    MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
                     message.setFrom(from);
                     message.setTo(to);
                     message.setSubject(subject);

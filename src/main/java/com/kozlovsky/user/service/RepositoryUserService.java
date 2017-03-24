@@ -1,8 +1,11 @@
 package com.kozlovsky.user.service;
 
+import com.kozlovsky.user.model.SigninEnity;
 import com.kozlovsky.user.model.User;
 import com.kozlovsky.user.dto.RegistrationForm;
+import com.kozlovsky.user.repository.SinginRepository;
 import com.kozlovsky.user.repository.UserRepository;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -24,6 +30,9 @@ public class RepositoryUserService implements UserService {
     private PasswordEncoder passwordEncoder;
 
     private UserRepository repository;
+
+    @Autowired
+    private SinginRepository singinRepository;
 
     @Autowired
     public RepositoryUserService(PasswordEncoder passwordEncoder, UserRepository repository) {
@@ -50,7 +59,7 @@ public class RepositoryUserService implements UserService {
                 .firstName(userAccountData.getFirstName())
                 .lastName(userAccountData.getLastName())
                 .password(encodedPassword)
-                .enaeble("not accept")
+                .enaeble(userAccountData.isSocialSignIn() ? "accept" :"not accept")
                 .registerkey(UUID.randomUUID().toString());
 
         if (userAccountData.isSocialSignIn()) {
@@ -59,10 +68,29 @@ public class RepositoryUserService implements UserService {
 
         User registered = user.build();
 
+
+
+        SigninEnity signinEnity = new SigninEnity(DateTime.now(),"lololol");
+
+        signinEnity.setUser(registered);
+
+        singinRepository.save(signinEnity);
+
+        LOGGER.debug("signinEnity->>>>>>>>>>>>>>>>>>> {}", signinEnity);
+        LOGGER.debug("registered after->>>>>>>>>>>>>>>>>>> {}", registered);
+
+
+
+        registered.setAcc(Arrays.asList(signinEnity));
+        LOGGER.debug("registered before->>>>>>>>>>>>>>>>>>> {}", registered);
+
+
         LOGGER.debug("Persisting new user with information: {}", registered);
 
         return repository.save(registered);
     }
+
+
 
     private boolean emailExist(String email) {
         LOGGER.debug("Checking if email {} is already found from the database.", email);

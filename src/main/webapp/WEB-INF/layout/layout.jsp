@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title><spring:message code="spring.social.mvc.normal.title"/></title>
+    <title><spring:message code="sIGnInorDie"/></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap-theme.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/font-awesome.css"/>
@@ -15,6 +15,7 @@
     <sitemesh:write property="head"/>
 </head>
 <body>
+<div id="centre">
 <div class="page">
     <div class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
@@ -24,13 +25,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <span class="navbar-brand">Spring Social Example</span>
+            <span class="navbar-brand">Kozlovsky Anton</span>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <sec:authorize access="isAuthenticated()">
-                    <li><a href="${pageContext.request.contextPath}"><spring:message code="label.navigation.home.link"/></a></li>
-                </sec:authorize>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li><a href="${pageContext.request.contextPath}/"><spring:message code="label.navigation.home.link"/></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAnonymous()">
@@ -53,9 +53,6 @@
                     <c:if test="${signInProvider == 'FACEBOOK'}">
                         <i class="icon-facebook-sign"></i>
                     </c:if>
-                    <c:if test="${signInProvider == 'TWITTER'}">
-                        <i class="icon-twitter-sign"></i>
-                    </c:if>
                     <c:if test="${empty signInProvider}">
                         <spring:message code="label.navigation.signed.in.as.text"/>
                     </c:if>
@@ -68,6 +65,10 @@
         <div id="view-holder">
             <sitemesh:write property="body"/>
         </div>
+    </div>
+
+    <div class="panel-footer">
+        <h1>Kozlovsky Anton</h1>
     </div>
 </div>
 </body>

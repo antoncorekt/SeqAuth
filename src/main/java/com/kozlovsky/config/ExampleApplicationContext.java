@@ -64,19 +64,6 @@ public class ExampleApplicationContext {
         javaMailSender.setJavaMailProperties(properties);
 
 
-        /*<property name="username" value="${java.mail.username}"/>
-        <property name="password" value="${java.mail.password}"/>
-        <property name="port" value="465"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-                <prop key="mail.smtp.starttls.required">true</prop>
-                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-                <prop key="mail.smtp.host">${java.mail.host}</prop>
-            </props>
-        </property>*/
-
         return javaMailSender;
     }
 

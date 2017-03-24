@@ -24,12 +24,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
         this.repository = repository;
     }
 
-    /**
-     * Loads the user information.
-     * @param username  The username of the requested user.
-     * @return  The information of the user.
-     * @throws UsernameNotFoundException    Thrown if no user is found with the given username.
-     */
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.debug("Loading user by username: {}", username);
@@ -37,7 +32,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
         User user = repository.findByEmail(username);
         LOGGER.debug("Found user: {}", user);
 
-        if (user == null) {
+        if (user == null || (!user.getEnaeble().equals("accept") && !user.getSignInProvider().toString().equals("FACEBOOK"))) {
             throw new UsernameNotFoundException("No user found with username: " + username);
         }
 

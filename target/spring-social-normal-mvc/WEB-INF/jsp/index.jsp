@@ -5,10 +5,12 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/social-buttons-3.css"/>
 </head>
 <body>
 <div class="page-header">
-    <h1><spring:message code="label.homepage.title"/> <sec:authentication property="principal.firstName"/> <sec:authentication property="principal.lastName"/></h1>
+    <h1><spring:message code="label.homepage.title"/>
+        <sec:authentication property="principal.firstName"/> <sec:authentication property="principal.lastName"/></h1>
 </div>
 <div>
     <p><spring:message code="text.homepage.greeting"/></p>

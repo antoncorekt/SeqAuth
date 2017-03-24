@@ -4,6 +4,7 @@ import com.kozlovsky.common.model.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author anton
@@ -44,8 +45,19 @@ public class User extends BaseEntity<Long> {
     @Column(name = "sign_in_provider", length = 20)
     private SocialMediaService signInProvider;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<SigninEnity> acc;
+
     public User() {
 
+    }
+
+    public List<SigninEnity> getAcc() {
+        return acc;
+    }
+
+    public void setAcc(List<SigninEnity> acc) {
+        this.acc = acc;
     }
 
     public void setId(Long id) {
@@ -138,6 +150,8 @@ public class User extends BaseEntity<Long> {
                 .append("version", this.getVersion())
                 .append("registerkey", this.registerkey)
                 .append("enaeble", this.enaeble)
+                .append("acc", this.acc)
+                .append("acc_len", acc != null ? acc.size() : 0)
                 .toString();
     }
 

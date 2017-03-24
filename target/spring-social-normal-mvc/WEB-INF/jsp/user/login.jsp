@@ -9,9 +9,11 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/social-buttons-3.css"/>
 </head>
 <body>
+
 <div class="page-header">
     <h1><spring:message code="label.user.login.page.title"/></h1>
 </div>
+
 <sec:authorize access="isAnonymous()">
     <div class="panel panel-default">
         <div class="panel-body">
@@ -58,16 +60,12 @@
                     <a href="${pageContext.request.contextPath}/auth/facebook"><button class="btn btn-facebook"><i class="icon-facebook"></i> | <spring:message code="label.facebook.sign.in.button"/></button></a>
                 </div>
             </div>
-            <div class="row social-button-row">
-                <div class="col-lg-4">
-                    <a href="${pageContext.request.contextPath}/auth/twitter"><button class="btn btn-twitter"><i class="icon-twitter"></i> | <spring:message code="label.twitter.sign.in.button"/></button></a>
-                </div>
-            </div>
         </div>
     </div>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
     <p><spring:message code="text.login.page.authenticated.user.help"/></p>
 </sec:authorize>
+    </div>
 </body>
 </html>
