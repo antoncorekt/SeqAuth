@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title><spring:message code="sIGnInorDie"/></title>
+    <title><spring:message code="Labs !!"/></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap-theme.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/font-awesome.css"/>
@@ -68,7 +68,7 @@
     </div>
 
     <div class="panel-footer">
-        <h1>Kozlovsky Anton</h1>
+        <h3>Kozlovsky Anton</h3>
     </div>
 </div>
 </body>

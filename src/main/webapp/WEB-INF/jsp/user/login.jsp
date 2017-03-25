@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <html>
 <head>
     <title></title>
@@ -22,6 +23,12 @@
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <spring:message code="text.login.page.login.failed.error"/>
+                </div>
+            </c:if>
+            <c:if test="${requestScope.get('mess') eq 't'}">
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <spring:message text="Activations complete"/>
                 </div>
             </c:if>
             <form action="${pageContext.request.contextPath}/login/authenticate" method="POST" role="form">

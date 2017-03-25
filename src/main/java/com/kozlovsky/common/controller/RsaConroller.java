@@ -47,10 +47,10 @@ public class RsaConroller {
         else
             rsa = rsaRepository.addRsa(user.getEmail());
 
-       // if (principal!=null)
+       if (principal!=null)
             return new PublicKeyResponse( rsa.getPublicKey().toString(),rsa.getN().toString());
-      //  else
-       //     return new ErrorResponse("access denied ");
+       else
+           return new ErrorResponse("access denied ");
         }
         catch (Exception e){
             return new ErrorResponse(e.toString());
@@ -75,10 +75,10 @@ public class RsaConroller {
 
             String s = rsa.arrayToStr(rsa.encrypt(text, rsa.getPublicKey(),rsa.getN()));
 
-            // if (principal!=null)
+             if (principal!=null)
             return new StringResponse(s);
-            //  else
-            //     return new ErrorResponse("access denied ");
+              else
+                 return new ErrorResponse("access denied ");
         }
         catch (Exception e){
             return new ErrorResponse(e.toString());

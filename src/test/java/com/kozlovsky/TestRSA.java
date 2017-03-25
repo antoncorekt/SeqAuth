@@ -1,6 +1,7 @@
 package com.kozlovsky;
 
 import com.kozlovsky.common.rsa.Rsa;
+import org.hibernate.annotations.Type;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -33,5 +34,13 @@ public class TestRSA {
         System.out.println("Decrypt : " + d);
 
 
+    }
+
+    @Test
+    public void textTest(){
+        byte[] bytes = "Abcd".getBytes();
+        for (int i = 0; i < bytes.length; i++) {
+            System.out.println(bytes[i]);
+        }
     }
 }

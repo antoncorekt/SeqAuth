@@ -10,6 +10,12 @@
 </head>
 <body>
 <div class="page-header">
+    <c:if test="${applicationScope.mess eq 't'}">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <spring:message text="Activations complete"/>
+        </div>
+    </c:if>
     <h1><spring:message code="label.homepage.title"/>
         <sec:authentication property="principal.firstName"/> <sec:authentication property="principal.lastName"/></h1>
 </div>

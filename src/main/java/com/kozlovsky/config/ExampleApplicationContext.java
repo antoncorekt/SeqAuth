@@ -50,8 +50,8 @@ public class ExampleApplicationContext {
     public JavaMailSenderImpl javaMailSender(){
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
-        javaMailSender.setUsername("kozlovsky.anton@gmail.com");
-        javaMailSender.setPassword("50191995FYNJY");
+        javaMailSender.setUsername("lolol@gmail.com");
+        javaMailSender.setPassword("lololo");
         javaMailSender.setPort(465);
 
         Properties properties = new Properties();

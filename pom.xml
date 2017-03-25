@@ -5,14 +5,7 @@
     <artifactId>spring-mvc-normal</artifactId>
     <packaging>war</packaging>
     <version>0.1</version>
-    <name>Spring Social Sign In MVC Normal</name>
-    <description>
-        This example demonstrates how you can integration Spring Social 1.1.0,
-        Spring Security 3.2.0, and a "normal" Spring MVC application.
-
-        You can create an user account by using either "normal" form registration or
-        sign in by using a social media service.
-    </description>
+    <name>Spring Sign In MVC</name>
 
     <properties>
         <hibernate.version>4.2.4.Final</hibernate.version>

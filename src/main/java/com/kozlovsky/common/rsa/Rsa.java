@@ -27,7 +27,8 @@ public class Rsa {
     }
 
     public static final BigInteger maxRand = new BigInteger("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999");
-   // public static final BigInteger maxRand = new BigInteger("70");
+    //public static final BigInteger maxRand = new BigInteger("70");
+    //public static final BigInteger maxRand = new BigInteger(2048,new Random());
 
     private BigInteger publicKey;
     private BigInteger privateKey;
@@ -119,11 +120,11 @@ public class Rsa {
     }
 
 
-    public ArrayList<String> encrypt(String str, BigInteger x, BigInteger y){
+    public ArrayList<String> encrypt(String str, BigInteger publicKey, BigInteger y){
         ArrayList<String> k = new ArrayList<>();
 
         for (int i = 0; i < str.length(); i++) {
-            k.add(new BigInteger(String.valueOf(str.codePointAt(i))).modPow(x,y).toString());
+            k.add(new BigInteger(String.valueOf(str.codePointAt(i))).modPow(publicKey,y).toString());
         }
 
         return k;
