@@ -2,14 +2,20 @@ package com.kozlovsky.common.controller;
 
 import com.kozlovsky.common.email.EmailModel;
 import com.kozlovsky.common.email.EmailService;
+import com.kozlovsky.user.model.User;
+import com.kozlovsky.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.lang.reflect.Array;
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,27 +29,24 @@ public class HomeController {
 
     protected static final String VIEW_NAME_HOMEPAGE = "index";
 
+
     @Autowired
-    private EmailService emailService;
+    private UserService service;
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String showHomePage() {
-        LOGGER.debug("Rendering homepage.");
+    public ModelAndView showHomePage(Principal principal) {
+        ModelAndView model = new ModelAndView(VIEW_NAME_HOMEPAGE);
+        LOGGER.info("Render homepage. " + principal.getName());
+        try {
 
-       /* EmailModel emailModel = new EmailModel();
-        Map<String, Object> model = new HashMap<>();
-        model.put("from", "kozlovsky.anton@gmail.com");
-        model.put("subject", "Hello from " + emailModel.getName() + "!");
-        model.put("to", "kozlovsky.anton@gmail.com");
-        model.put("ccList", new ArrayList<>());
-        model.put("bccList", new ArrayList<>());
-        model.put("userName", "javastudyUser");
-        model.put("urljavastudy", "javastudy.ru");
-        model.put("message", "messageLOlol");
-        boolean result = emailService.sendEmail("WEB-INF/email-temp/registered.vm", model);*/
+            User user = service.getUserForEmail(principal.getName());
+            model.addObject("lists", user.getAcc());
 
+        }
+        catch (Exception e){
+            LOGGER.error(e.toString() + " error");
+        }
 
-
-        return VIEW_NAME_HOMEPAGE;
+        return model;
     }
 }

@@ -1,9 +1,14 @@
 package com.kozlovsky.user.model;
 
 import com.kozlovsky.common.model.BaseEntity;
+import com.kozlovsky.common.rsa.Rsa;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+import sun.reflect.misc.ReflectUtil;
 
 import javax.persistence.*;
+import javax.print.attribute.standard.MediaSize;
 import java.util.List;
 
 /**
@@ -47,6 +52,7 @@ public class User extends BaseEntity<Long> {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<SigninEnity> acc;
+
 
     public User() {
 

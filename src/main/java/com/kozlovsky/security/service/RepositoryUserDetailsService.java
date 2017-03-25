@@ -1,14 +1,22 @@
 package com.kozlovsky.security.service;
 
+import com.kozlovsky.common.helper.IpProvider;
 import com.kozlovsky.security.dto.ExampleUserDetails;
+import com.kozlovsky.user.model.SigninEnity;
 import com.kozlovsky.user.model.User;
+import com.kozlovsky.user.repository.SinginRepository;
 import com.kozlovsky.user.repository.UserRepository;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author anton
@@ -20,10 +28,15 @@ public class RepositoryUserDetailsService implements UserDetailsService {
     private UserRepository repository;
 
     @Autowired
+    private SinginRepository singinRepository;
+
+    @Autowired
     public RepositoryUserDetailsService(UserRepository repository) {
         this.repository = repository;
     }
 
+    @Autowired
+    private IpProvider ipProvider;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -47,6 +60,34 @@ public class RepositoryUserDetailsService implements UserDetailsService {
                 .build();
 
         LOGGER.debug("Returning user details: {}", principal);
+
+
+        SigninEnity signinEnity = new SigninEnity(DateTime.now(),ipProvider.getIp() != null ? ipProvider.getIp() : "ip not found");
+
+
+        signinEnity.setUser(user);
+
+        try {
+            singinRepository.save(signinEnity);
+
+
+            User res = new User();
+
+            List<SigninEnity> singList = user.getAcc();
+
+            if (singList == null) singList = new ArrayList<>();
+
+            singList.add(signinEnity);
+
+            user.setAcc(singList);
+
+            LOGGER.debug("Persisting new user with information: {}", user);
+            //res = repository.save(registered);
+        }
+        catch (Exception e){
+            LOGGER.error("Error" + e.getMessage());
+        }
+
 
         return principal;
     }

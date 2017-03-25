@@ -24,9 +24,12 @@ public class SigninEnity implements Serializable {
     @Column(name = "ip")
     private String ip;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private User user;
 
+    public SigninEnity() {
+
+    }
 
     public SigninEnity(DateTime signinTime, String ip) {
         this.id = UUID.randomUUID().toString();

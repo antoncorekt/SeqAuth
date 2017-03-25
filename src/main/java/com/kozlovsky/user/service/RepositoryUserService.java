@@ -40,7 +40,7 @@ public class RepositoryUserService implements UserService {
         this.repository = repository;
     }
 
-    @Transactional
+
     @Override
     public User registerNewUserAccount(RegistrationForm userAccountData) throws DuplicateEmailException {
         LOGGER.debug("Registering new user account with information: {}", userAccountData);
@@ -54,6 +54,7 @@ public class RepositoryUserService implements UserService {
 
         String encodedPassword = encodePassword(userAccountData);
 
+
         User.Builder user = User.getBuilder()
                 .email(userAccountData.getEmail())
                 .firstName(userAccountData.getFirstName())
@@ -62,32 +63,42 @@ public class RepositoryUserService implements UserService {
                 .enaeble(userAccountData.isSocialSignIn() ? "accept" :"not accept")
                 .registerkey(UUID.randomUUID().toString());
 
+
         if (userAccountData.isSocialSignIn()) {
             user.signInProvider(userAccountData.getSignInProvider());
         }
+
 
         User registered = user.build();
 
 
 
-        SigninEnity signinEnity = new SigninEnity(DateTime.now(),"lololol");
+       /* SigninEnity signinEnity = new SigninEnity(DateTime.now(),"lololol1");
+
 
         signinEnity.setUser(registered);
 
-        singinRepository.save(signinEnity);
+        try {
+            singinRepository.save(signinEnity);
 
-        LOGGER.debug("signinEnity->>>>>>>>>>>>>>>>>>> {}", signinEnity);
-        LOGGER.debug("registered after->>>>>>>>>>>>>>>>>>> {}", registered);
+        }
+        catch (Exception e){
+            LOGGER.error("Error" + e.getMessage());
+        }
+
+        User res = new User();
+        try {
+            registered.setAcc(Arrays.asList(signinEnity));
+
+            LOGGER.debug("Persisting new user with information: {}", registered);
+            //res = repository.save(registered);
+        }
+        catch (Exception e){
+            LOGGER.error("Error" + e.getMessage());
+        }*/
 
 
-
-        registered.setAcc(Arrays.asList(signinEnity));
-        LOGGER.debug("registered before->>>>>>>>>>>>>>>>>>> {}", registered);
-
-
-        LOGGER.debug("Persisting new user with information: {}", registered);
-
-        return repository.save(registered);
+        return  repository.save(registered);
     }
 
 
@@ -128,6 +139,10 @@ public class RepositoryUserService implements UserService {
         return user;
     }
 
+    @Override
+    public User getUserForEmail(String email) {
+        return repository.findByEmail(email);
+    }
 
 
     private String encodePassword(RegistrationForm dto) {

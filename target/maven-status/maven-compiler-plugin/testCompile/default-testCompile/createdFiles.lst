@@ -33,6 +33,7 @@ com/kozlovsky/user/controller/TestProviderSignInAttemptAssert.class
 org/springframework/test/web/server/samples/context/SecurityRequestPostProcessors$SecurityContextRequestPostProcessorSupport.class
 com/kozlovsky/user/validation/PasswordsNotEmptyValidatorTest$InvalidPasswordFieldDTO.class
 com/kozlovsky/ColumnSensingFlatXMLDataSetLoader.class
+com/kozlovsky/TestDB.class
 com/kozlovsky/common/model/BaseEntityTest.class
 com/kozlovsky/user/service/RepositoryUserServiceTest.class
 com/kozlovsky/common/controller/HomeControllerTest.class

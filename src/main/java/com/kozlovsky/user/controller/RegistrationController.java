@@ -110,7 +110,7 @@ public class RegistrationController {
         model.put("to", userAccountData.getEmail());
 
         if (!userAccountData.isSocialSignIn())
-        emailService.sendEmail(htppRequest.getRemoteAddr()+":"+"8080" + "/activations?key="+registered.getRegisterkey()
+        emailService.sendEmail(htppRequest.getLocalAddr()+":"+"8080" + "/activations?key="+registered.getRegisterkey()
                 , model);
 
 

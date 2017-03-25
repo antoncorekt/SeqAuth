@@ -1,6 +1,4 @@
 <sitemesh>
     <mapping path="/*" decorator="/WEB-INF/layout/layout.jsp"/>
-    <error-page>
-        <location>/generalError</location>
-    </error-page>
+
 </sitemesh>

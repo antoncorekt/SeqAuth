@@ -28,7 +28,7 @@ public class WebAppContext extends WebMvcConfigurerAdapter {
 
     private static final String VIEW_RESOLVER_PREFIX = "/WEB-INF/jsp/";
     private static final String VIEW_RESOLVER_SUFFIX = ".jsp";
-    private static final String VIEW_ERROR_PAGE = "error/error";
+    private static final String VIEW_ERROR_PAGE = "error/general";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -46,15 +46,15 @@ public class WebAppContext extends WebMvcConfigurerAdapter {
 
         Properties exceptionMappings = new Properties();
 
-        exceptionMappings.put("java.lang.Exception",VIEW_ERROR_PAGE);
-        exceptionMappings.put("java.lang.RuntimeException", VIEW_ERROR_PAGE);
+        exceptionMappings.put("java.lang.Exception", "error/general");
+        exceptionMappings.put("java.lang.RuntimeException", "error/general");
 
         exceptionResolver.setExceptionMappings(exceptionMappings);
 
         Properties statusCodes = new Properties();
 
-        statusCodes.put(VIEW_ERROR_PAGE, "404");
-        statusCodes.put(VIEW_ERROR_PAGE, "500");
+        statusCodes.put("error/404", "404");
+        statusCodes.put("error/error", "500");
 
         exceptionResolver.setStatusCodes(statusCodes);
 

@@ -8,11 +8,7 @@
 </head>
 <body>
 <div class="page-header">
-    <h1>Error</h1>
-    <div th:replace="fragments/layout.html :: alert (type='danger', message=${errorMessage})">Error: Error</div>
-</div>
-<div>
-    <p><spring:message code="text.homepage.greeting"/></p>
+    <h1>Error=(</h1>
 </div>
 </body>
 </html>

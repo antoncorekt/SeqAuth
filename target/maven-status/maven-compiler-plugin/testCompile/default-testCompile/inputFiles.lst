@@ -32,6 +32,7 @@
 /home/anton/Documents/spring-mvc-normal/src/test/java/org/springframework/social/connect/support/TestConnection.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/security/service/RepositoryUserDetailsServiceTest.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/common/model/BaseEntityAssert.java
+/home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/TestDB.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/security/util/SecurityUtilTest.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/security/controller/LoginControllerTest.java
 /home/anton/Documents/spring-mvc-normal/src/integration-test/java/org/springframework/test/web/server/samples/context/SecurityRequestPostProcessors.java
