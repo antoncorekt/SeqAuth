@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
-/target/
+
 /README.md
 /hs_err_pid12291.log
 /LICENSE
 /*.iml
+!/hs_err_pid12291.log
+
