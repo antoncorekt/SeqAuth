@@ -26,8 +26,8 @@ public class Rsa {
         LOGGER.info("constructor rsa");
     }
 
-    public static final BigInteger maxRand = new BigInteger("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999");
-   // public static final BigInteger maxRand = new BigInteger("70");
+   // public static final BigInteger maxRand = new BigInteger("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+    public static final BigInteger maxRand = new BigInteger(512,new Random());
 
     private BigInteger publicKey;
     private BigInteger privateKey;
@@ -35,14 +35,22 @@ public class Rsa {
     private BigInteger n;
 
     private BigInteger a;
-    private BigInteger generatePrimeNumbers(){
+    int count=0;
+    public BigInteger generatePrimeNumbers(){
         a = rndBigInt(maxRand);
 
+
+
+
         if (!a.isProbablePrime(1)){
+            count++;
            return generatePrimeNumbers();
         }
-        else
+        else {
+            LOGGER.info("COUNTER {}", count);
+
             return a;
+        }
 
     }
 
@@ -109,7 +117,7 @@ public class Rsa {
     }
 
 
-    private static BigInteger rndBigInt(BigInteger max) {
+    public static BigInteger rndBigInt(BigInteger max) {
         Random rnd = new Random();
         do {
             BigInteger i = new BigInteger(max.bitLength(), rnd);

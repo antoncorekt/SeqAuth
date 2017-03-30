@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by anton on 25.03.17.
@@ -34,4 +35,16 @@ public class TestRSA {
 
 
     }
+
+    Rsa rsa = new Rsa();
+
+    @Test
+    public void test1(){
+
+        BigInteger a = rsa.generatePrimeNumbers();
+
+        //System.out.println("->>"+a);
+    }
+
+
 }

@@ -19,6 +19,7 @@
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/user/dto/RegistrationFormBuilder.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/user/controller/RegistrationControllerTest.java
 /home/anton/Documents/spring-mvc-normal/src/integration-test/java/com/kozlovsky/ColumnSensingFlatXMLDataSetLoader.java
+/home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/TestRSA.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/user/model/UserAssert.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/user/controller/TestProviderSignInAttemptAssert.java
 /home/anton/Documents/spring-mvc-normal/src/test/java/com/kozlovsky/config/UnitTestContext.java

@@ -5,7 +5,6 @@ import com.kozlovsky.common.rsa.Rsa;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
-import sun.reflect.misc.ReflectUtil;
 
 import javax.persistence.*;
 import javax.print.attribute.standard.MediaSize;
